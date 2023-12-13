@@ -1,10 +1,30 @@
-import { StyleSheet } from "react-native";
+import styled, { css } from "styled-components/native";
 
-export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+export const Container = styled.ImageBackground`
+  ${({ theme }) => css`
+    background-color: ${theme.COLORS.GRAY_600};
+  `}
+  flex: 1;
+  align-items: center;
+  padding: 52px;
+`;
+
+export const Title = styled.Text`
+  ${({ theme }) => css`
+    color: ${theme.COLORS.BRAND_LIGHT};
+    font-size: ${theme.FONT_SIZE.XXXL}px;
+    line-height: 44.8px;
+    margin-top: 200px;
+    font-family: ${theme.FONT_FAMILY.BOLD};
+    text-align: center;
+  `}
+`;
+
+export const Subtitle = styled.Text`
+  ${({ theme }) => css`
+    color: ${theme.COLORS.GRAY_100};
+    font-size: ${theme.FONT_SIZE.MD}px;
+    font-family: ${theme.FONT_FAMILY.REGULAR};
+    text-align: center;
+  `}
+`;
