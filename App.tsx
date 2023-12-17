@@ -8,10 +8,14 @@ import {
   Roboto_700Bold,
   useFonts,
 } from "@expo-google-fonts/roboto";
+import { AppProvider, UserProvider } from "@realm/react";
 
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
 import { StatusBar } from "react-native";
+
+import { M_APP_ID } from "@env";
+import { HomeScreen } from "./app/screens/Home";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -27,13 +31,17 @@ export default function App() {
   if (!fontsLoaded) return null;
 
   return (
-    <ThemeProvider theme={theme}>
-      <StatusBar
-        barStyle="light-content"
-        translucent
-        backgroundColor="transparent"
-      />
-      <SignInScreen />
-    </ThemeProvider>
+    <AppProvider id={M_APP_ID}>
+      <ThemeProvider theme={theme}>
+        <StatusBar
+          barStyle="light-content"
+          translucent
+          backgroundColor="transparent"
+        />
+        <UserProvider fallback={SignInScreen}>
+          <HomeScreen />
+        </UserProvider>
+      </ThemeProvider>
+    </AppProvider>
   );
 }

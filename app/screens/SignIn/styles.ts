@@ -5,8 +5,12 @@ export const Container = styled.ImageBackground`
     background-color: ${theme.COLORS.GRAY_600};
   `}
   flex: 1;
-  align-items: center;
+
   padding: 52px;
+`;
+
+export const Wrapper = styled.View`
+  flex: 1;
 `;
 
 export const Title = styled.Text`
@@ -26,5 +30,7 @@ export const Subtitle = styled.Text`
     font-size: ${theme.FONT_SIZE.MD}px;
     font-family: ${theme.FONT_FAMILY.REGULAR};
     text-align: center;
+
+    margin-bottom: 32px;
   `}
 `;
