@@ -2,9 +2,7 @@ import styled, { css } from "styled-components/native";
 
 export const Container = styled.View`
   ${({ theme }) => css`
-    background-color: ${theme.COLORS.GRAY_600};
+    background-color: ${theme.COLORS.GRAY_800};
   `}
   flex: 1;
-
-  padding: 52px;
 `;

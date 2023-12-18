@@ -6,8 +6,12 @@ import { GoogleAuthenticationProvider } from "../../services";
 import { useState } from "react";
 import { Alert } from "react-native";
 
+import { Realm, useApp } from "@realm/react";
+
 export const SignInScreen = () => {
   const [isAuthenticating, setIsAuthenticating] = useState(false);
+  const app = useApp();
+
   async function handleGoogleSignIn() {
     try {
       setIsAuthenticating(true);
@@ -15,6 +19,9 @@ export const SignInScreen = () => {
       const { idToken } = await GoogleAuthenticationProvider.signIn();
 
       if (idToken) {
+        const credentials = Realm.Credentials.jwt(idToken);
+
+        await app.logIn(credentials);
       } else {
         Alert.alert(
           "Entrar",
