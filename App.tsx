@@ -18,6 +18,7 @@ import { M_APP_ID } from "@env";
 
 import { Routes } from "./app/routes";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { RealmProvider } from "./app/libs/realm";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -42,7 +43,9 @@ export default function App() {
             backgroundColor="transparent"
           />
           <UserProvider fallback={SignInScreen}>
-            <Routes />
+            <RealmProvider>
+              <Routes />
+            </RealmProvider>
           </UserProvider>
         </SafeAreaProvider>
       </ThemeProvider>

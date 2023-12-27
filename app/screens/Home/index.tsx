@@ -1,6 +1,6 @@
 import { useNavigation } from "@react-navigation/native";
-import { Header } from "../../components";
-import { Container } from "./styles";
+import { CardStatus, Header } from "../../components";
+import { Container, Content } from "./styles";
 
 export const HomeScreen = () => {
   const { navigate } = useNavigation();
@@ -8,6 +8,9 @@ export const HomeScreen = () => {
   return (
     <Container>
       <Header />
+      <Content>
+        <CardStatus />
+      </Content>
     </Container>
   );
 };
