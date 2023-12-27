@@ -15,7 +15,9 @@ import { useEffect } from "react";
 import { StatusBar } from "react-native";
 
 import { M_APP_ID } from "@env";
-import { HomeScreen } from "./app/screens/Home";
+
+import { Routes } from "./app/routes";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -33,14 +35,16 @@ export default function App() {
   return (
     <AppProvider id={M_APP_ID}>
       <ThemeProvider theme={theme}>
-        <StatusBar
-          barStyle="light-content"
-          translucent
-          backgroundColor="transparent"
-        />
-        <UserProvider fallback={SignInScreen}>
-          <HomeScreen />
-        </UserProvider>
+        <SafeAreaProvider>
+          <StatusBar
+            barStyle="light-content"
+            translucent
+            backgroundColor="transparent"
+          />
+          <UserProvider fallback={SignInScreen}>
+            <Routes />
+          </UserProvider>
+        </SafeAreaProvider>
       </ThemeProvider>
     </AppProvider>
   );

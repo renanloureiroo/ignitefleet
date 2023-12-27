@@ -1,5 +1,9 @@
 import styled, { css } from "styled-components/native";
 
+import { Image } from "expo-image";
+
+const blurHash = "L184iAoffQof00ayfQay~qj[fQj[";
+
 export const Container = styled.TouchableOpacity`
   width: 100%;
   padding: 32px;
@@ -9,8 +13,9 @@ export const Container = styled.TouchableOpacity`
   background-color: ${({ theme }) => theme.COLORS.GRAY_700};
 `;
 
-export const Photo = styled.Image.attrs({
-  resizeMode: "cover",
+export const Photo = styled(Image).attrs({
+  contentFit: "cover",
+  placeholder: blurHash,
 })`
   width: 54px;
   height: 54px;
