@@ -1,15 +1,19 @@
 import { useNavigation } from "@react-navigation/native";
-import { CardStatus, Header } from "../../components";
+import { CardStatus, HomeHeader } from "../../components";
 import { Container, Content } from "./styles";
 
 export const HomeScreen = () => {
   const { navigate } = useNavigation();
 
+  const handleRegisterMovement = () => {
+    navigate("departure");
+  };
+
   return (
     <Container>
-      <Header />
+      <HomeHeader />
       <Content>
-        <CardStatus />
+        <CardStatus onPress={handleRegisterMovement} />
       </Content>
     </Container>
   );

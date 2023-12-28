@@ -2,12 +2,16 @@ import { Key, Car } from "phosphor-react-native";
 import { FC } from "react";
 import { Container, IconBox, Message, TextHighlight } from "./styles";
 import { useTheme } from "styled-components/native";
+import { TouchableOpacityProps } from "react-native";
 
-type CardStatusProps = {
+type CardStatusProps = TouchableOpacityProps & {
   licensePlate?: string;
 };
 
-export const CardStatus: FC<CardStatusProps> = ({ licensePlate = null }) => {
+export const CardStatus: FC<CardStatusProps> = ({
+  licensePlate = null,
+  ...rest
+}) => {
   const { COLORS } = useTheme();
   const Icon = licensePlate ? Key : Car;
   const message = licensePlate
@@ -17,7 +21,7 @@ export const CardStatus: FC<CardStatusProps> = ({ licensePlate = null }) => {
   const status = licensePlate ? "chegada" : "saída";
 
   return (
-    <Container>
+    <Container {...rest}>
       <IconBox>
         <Icon size={32} color={COLORS.BRAND_LIGHT} />
       </IconBox>

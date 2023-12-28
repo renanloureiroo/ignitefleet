@@ -1,3 +1,4 @@
+import "react-native-get-random-values";
 import { SignInScreen } from "./app/screens/SignIn";
 import { ThemeProvider } from "styled-components/native";
 
@@ -12,7 +13,7 @@ import { AppProvider, UserProvider } from "@realm/react";
 
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
-import { StatusBar } from "react-native";
+import { StatusBar, View } from "react-native";
 
 import { M_APP_ID } from "@env";
 
@@ -36,7 +37,11 @@ export default function App() {
   return (
     <AppProvider id={M_APP_ID}>
       <ThemeProvider theme={theme}>
-        <SafeAreaProvider>
+        <SafeAreaProvider
+          style={{
+            backgroundColor: theme.COLORS.GRAY_700,
+          }}
+        >
           <StatusBar
             barStyle="light-content"
             translucent

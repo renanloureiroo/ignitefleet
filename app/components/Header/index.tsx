@@ -1,34 +1,20 @@
-import { Alert, TouchableOpacity } from "react-native";
-import { Container, Greeting, Message, Name, Photo } from "./styles";
-
+import { TouchableOpacity } from "react-native";
+import { Container, Title } from "./style";
+import { ArrowLeft } from "phosphor-react-native";
 import { useTheme } from "styled-components/native";
-import { useUser, useApp } from "@realm/react";
-import { Power } from "phosphor-react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { useNavigation } from "@react-navigation/native";
+import { FC } from "react";
 
-export const Header = () => {
+type HeaderProps = {
+  title: string;
+};
+
+export const Header: FC<HeaderProps> = ({ title }) => {
+  const { goBack } = useNavigation();
   const { top } = useSafeAreaInsets();
-  const paddingTop = top + 32;
-
   const { COLORS } = useTheme();
-
-  const user = useUser();
-  const app = useApp();
-
-  const handleLogout = () => {
-    Alert.alert("Logout", "Deseja sair da aplicação?", [
-      {
-        text: "Não",
-        style: "cancel",
-      },
-      {
-        text: "Sim",
-        onPress: () => {
-          app.currentUser?.logOut();
-        },
-      },
-    ]);
-  };
+  const paddingTop = top + 42;
 
   return (
     <Container
@@ -36,20 +22,11 @@ export const Header = () => {
         paddingTop,
       }}
     >
-      <Photo
-        source={{
-          uri: user?.profile.pictureUrl,
-        }}
-      />
-
-      <Greeting>
-        <Message>Olá,</Message>
-        <Name>{user?.profile.name}</Name>
-      </Greeting>
-
-      <TouchableOpacity onPress={handleLogout}>
-        <Power size={32} color={COLORS.GRAY_400} />
+      <TouchableOpacity activeOpacity={0.7} onPress={goBack}>
+        <ArrowLeft size={24} weight="bold" color={COLORS.BRAND_LIGHT} />
       </TouchableOpacity>
+
+      <Title>{title}</Title>
     </Container>
   );
 };
