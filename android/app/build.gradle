@@ -77,6 +77,10 @@ def enableProguardInReleaseBuilds = (findProperty('android.enableProguardInRelea
 def jscFlavor = 'org.webkit:android-jsc:+'
 
 android {
+    compileOptions {
+        sourceCompatibility = findProperty('android.jdkMajorVersion') ?: "17"
+        targetCompatibility = findProperty('android.jdkMajorVersion') ?: "17"
+    }
     ndkVersion rootProject.ext.ndkVersion
 
     compileSdkVersion rootProject.ext.compileSdkVersion
