@@ -35,7 +35,6 @@ export const Message = styled.Text.attrs({
     color: ${theme.COLORS.GRAY_100};
   `}
   flex:1;
-  text-align: justify;
 `;
 
 export const TextHighlight = styled.Text`
