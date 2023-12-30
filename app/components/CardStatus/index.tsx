@@ -23,7 +23,7 @@ export const CardStatus: FC<CardStatusProps> = ({
   return (
     <Container {...rest}>
       <IconBox>
-        <Icon size={32} color={COLORS.BRAND_LIGHT} />
+        <Icon size={52} color={COLORS.BRAND_LIGHT} />
       </IconBox>
       <Message>
         {message}
