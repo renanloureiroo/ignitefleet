@@ -12,6 +12,7 @@ import {
   useFonts,
 } from "@expo-google-fonts/roboto";
 import { AppProvider, UserProvider } from "@realm/react";
+import { useNetInfo } from "@react-native-community/netinfo";
 
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
@@ -21,12 +22,16 @@ import { M_APP_ID } from "@env";
 
 import { Routes } from "./app/routes";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { RealmProvider } from "./app/libs/realm";
+import { RealmProvider, syncConfig } from "./app/libs/realm";
+import { Loading } from "./app/components/Button/styles";
+import { TopMessage } from "./app/components";
+import { WifiSlash } from "phosphor-react-native";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
+  const { isConnected } = useNetInfo();
 
   useEffect(() => {
     if (fontsLoaded) {
@@ -44,13 +49,16 @@ export default function App() {
             backgroundColor: theme.COLORS.GRAY_700,
           }}
         >
+          {!isConnected && (
+            <TopMessage icon={WifiSlash} title="Você está offline!" />
+          )}
           <StatusBar
             barStyle="light-content"
-            translucent
             backgroundColor="transparent"
+            translucent
           />
           <UserProvider fallback={SignInScreen}>
-            <RealmProvider>
+            <RealmProvider sync={syncConfig} fallback={<Loading />}>
               <Routes />
             </RealmProvider>
           </UserProvider>

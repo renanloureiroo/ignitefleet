@@ -9,7 +9,6 @@ export const Container = styled.View`
 
   ${({ theme }) => css`
     background-color: ${theme.COLORS.GRAY_700};
-    z-index: 1;
   `}
 `;
 
