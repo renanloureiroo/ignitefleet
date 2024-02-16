@@ -1,20 +1,34 @@
 const fs = require("fs");
 const path = require("path");
 
-// Atualize esses caminhos conforme necessário
-const buildGradlePath = path.join(
-  __dirname,
-  "node_modules/@react-native-community/netinfo/android/build.gradle"
-);
-const androidManifestPath = path.join(
-  __dirname,
-  "node_modules/@react-native-community/netinfo/android/src/main/AndroidManifest.xml"
-);
+const paths = [
+  {
+    buildGradlePath: path.join(
+      __dirname,
+      "node_modules/@react-native-community/netinfo/android/build.gradle"
+    ),
+    androidManifestPath: path.join(
+      __dirname,
+      "node_modules/@react-native-community/netinfo/android/src/main/AndroidManifest.xml"
+    ),
+  },
+
+  {
+    buildGradlePath: path.join(
+      __dirname,
+      "node_modules/react-native-maps/android/build.gradle"
+    ),
+    androidManifestPath: path.join(
+      __dirname,
+      "node_modules/react-native-maps/android/src/main/AndroidManifest.xml"
+    ),
+  },
+];
 
 // Função para ler o atributo package do AndroidManifest.xml
-function getPackageFromManifest() {
+function getPackageFromManifest(item) {
   return new Promise((resolve, reject) => {
-    fs.readFile(androidManifestPath, "utf8", (err, data) => {
+    fs.readFile(item.androidManifestPath, "utf8", (err, data) => {
       if (err) {
         reject(err);
         return;
@@ -31,8 +45,8 @@ function getPackageFromManifest() {
 }
 
 // Função para inserir o namespace no build.gradle
-function insertNamespace(namespace) {
-  fs.readFile(buildGradlePath, "utf8", (err, data) => {
+function insertNamespace(namespace, item) {
+  fs.readFile(item.buildGradlePath, "utf8", (err, data) => {
     if (err) {
       console.log(err);
       return;
@@ -44,7 +58,7 @@ function insertNamespace(namespace) {
         `android {\n  namespace "${namespace}"`
       );
 
-      fs.writeFile(buildGradlePath, result, "utf8", (err) => {
+      fs.writeFile(item.buildGradlePath, result, "utf8", (err) => {
         if (err) {
           console.log(err);
           return;
@@ -59,7 +73,12 @@ function insertNamespace(namespace) {
   });
 }
 
-// Executar as funções
-getPackageFromManifest()
-  .then(insertNamespace)
-  .catch((error) => console.log(error));
+paths.forEach((item) => {
+  getPackageFromManifest(item)
+    .then((package) => {
+      insertNamespace(package, item);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});

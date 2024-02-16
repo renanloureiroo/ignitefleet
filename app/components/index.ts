@@ -6,3 +6,6 @@ export * from "./LicensePlateInput";
 export * from "./TextAreaInput";
 export * from "./HistoricCard";
 export * from "./TopMessage";
+export * from "./LocationInfo";
+export * from "./IconBox";
+export * from "./Map";

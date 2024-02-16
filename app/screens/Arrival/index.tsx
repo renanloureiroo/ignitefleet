@@ -16,6 +16,7 @@ import { useTheme } from "styled-components/native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { BSON } from "realm";
 import { Alert } from "react-native";
+import { stopLocationTrackingTask } from "../../tasks/backgroundLocationTask";
 
 type RouteParams = {
   id: string;
@@ -54,12 +55,12 @@ export const ArrivalScreen = () => {
     ]);
   };
 
-  const handleArrivalRegister = () => {
+  const handleArrivalRegister = async () => {
     try {
       if (!historic) {
         Alert.alert("Erro", "Não foi possível encontrar o veículo");
       }
-
+      await stopLocationTrackingTask();
       realm.write(() => {
         historic!.status = "arrival";
         historic!.updated_at = new Date();
