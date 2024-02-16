@@ -5,6 +5,10 @@ import {
   hasStartedLocationUpdatesAsync,
 } from "expo-location";
 import * as TaskManager from "expo-task-manager";
+import {
+  clearLocationStorage,
+  saveLocationStorage,
+} from "../libs/asyncStorage/locationStorage";
 
 export const BACKGROUND_TASK_NAME = "location-tracking";
 
@@ -24,7 +28,9 @@ TaskManager.defineTask(BACKGROUND_TASK_NAME, async ({ data, error }: any) => {
       timestamp,
     };
 
-    console.log("Location received", currentLocation);
+    console.log(currentLocation);
+
+    await saveLocationStorage(currentLocation);
   } catch (error) {
     console.error(error);
     stopLocationTrackingTask();
@@ -58,6 +64,7 @@ export async function stopLocationTrackingTask() {
     );
     if (!hasStarted) return;
     await stopLocationUpdatesAsync(BACKGROUND_TASK_NAME);
+    await clearLocationStorage();
   } catch (error) {
     console.error(error);
   }

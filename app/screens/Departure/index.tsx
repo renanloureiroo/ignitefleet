@@ -94,6 +94,13 @@ export const DepartureScreen = () => {
             user_id: user.id,
             license_plate: licensePlate.toUpperCase(),
             description,
+            coords: [
+              {
+                latitude: currentCoordinates.latitude,
+                longitude: currentCoordinates.longitude,
+                timestamp: new Date().getTime(),
+              },
+            ],
           })
         );
       });
